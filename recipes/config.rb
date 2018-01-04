@@ -277,6 +277,6 @@ end
 service 'cassandra' do
   supports restart: true, status: true
   service_name node['cassandra']['service_name']
-  action node['cassandra']['service_action']
+  action :nothing
   only_if { node['cassandra']['use_initd'] || node['cassandra']['use_systemd'] }
 end
