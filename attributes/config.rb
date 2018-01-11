@@ -25,8 +25,13 @@ default['cassandra']['config']['concurrent_reads'] = 32 # suggested at 16 * numb
 default['cassandra']['config']['concurrent_writes'] = 32 # suggested at 8 * number of cpu cores
 default['cassandra']['config']['trickle_fsync'] = false
 default['cassandra']['config']['trickle_fsync_interval_in_kb'] = 10_240
-default['cassandra']['config']['listen_address'] = node['ipaddress']
-default['cassandra']['config']['broadcast_address'] = node['ipaddress']
+nodeip = node['ipaddress']
+if !node['cassandra']['network_interface'].nil? && !node["network"]["interfaces"][node['cassandra']['network_interface']].nil?
+  nodeip = node["network"]["interfaces"]["eth1"]["addresses"].select {|address, data| data["family"] == "inet" }.keys[0]
+end
+
+default['cassandra']['config']['listen_address'] = nodeip
+default['cassandra']['config']['broadcast_address'] = nodeip
 default['cassandra']['config']['rpc_address'] = '0.0.0.0'
 default['cassandra']['config']['rpc_port'] = '9160'
 default['cassandra']['config']['storage_port'] = 7000
