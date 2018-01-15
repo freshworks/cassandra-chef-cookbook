@@ -180,9 +180,9 @@ end
 #   notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
 #   only_if { node['cassandra']['metrics_reporter']['enabled'] }
 # end
-
-code <<-EOH
-    aws s3 cp #{node['cassandra']['metrics_reporter']['s3_url']}" #{node['cassandra']['lib_dir']}
+bash 'download influxdb-reporter' do
+  code <<-EOH
+    aws s3 cp #{node['cassandra']['metrics_reporter']['s3_url']} #{node['cassandra']['lib_dir']}
   EOH
 end
 
