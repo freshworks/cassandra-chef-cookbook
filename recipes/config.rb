@@ -167,18 +167,23 @@ end
 
 # setup metrics reporter
 
-remote_file "/usr/share/java/#{node['cassandra']['metrics_reporter']['jar_name']}" do
-  source node['cassandra']['metrics_reporter']['jar_url']
-  checksum node['cassandra']['metrics_reporter']['sha256sum']
-  only_if { node['cassandra']['metrics_reporter']['enabled'] }
-end
+# remote_file "/usr/share/java/#{node['cassandra']['metrics_reporter']['jar_name']}" do
+#   source node['cassandra']['metrics_reporter']['jar_url']
+#   checksum node['cassandra']['metrics_reporter']['sha256sum']
+#   only_if { node['cassandra']['metrics_reporter']['enabled'] }
+# end
 
-link "#{node['cassandra']['lib_dir']}/#{node['cassandra']['metrics_reporter']['name']}.jar" do
-  to "/usr/share/java/#{node['cassandra']['metrics_reporter']['jar_name']}"
-  owner node['cassandra']['user']
-  group node['cassandra']['group']
-  notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
-  only_if { node['cassandra']['metrics_reporter']['enabled'] }
+# link "#{node['cassandra']['lib_dir']}/#{node['cassandra']['metrics_reporter']['name']}.jar" do
+#   to "/usr/share/java/#{node['cassandra']['metrics_reporter']['jar_name']}"
+#   owner node['cassandra']['user']
+#   group node['cassandra']['group']
+#   notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
+#   only_if { node['cassandra']['metrics_reporter']['enabled'] }
+# end
+
+code <<-EOH
+    aws s3 cp #{node['cassandra']['metrics_reporter']['s3_url']}" #{node['cassandra']['lib_dir']}
+  EOH
 end
 
 template ::File.join(node['cassandra']['conf_dir'], 'cassandra-metrics.yaml') do

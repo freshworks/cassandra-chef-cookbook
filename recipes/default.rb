@@ -30,3 +30,5 @@ include_recipe "cassandra-dse::#{node['cassandra']['install_method']}"
 
 # configues C*
 include_recipe 'cassandra-dse::config'
+
+include_recipe 'cassandra-dse::setup_monitoring'
