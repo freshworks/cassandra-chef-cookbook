@@ -1,3 +1,19 @@
+default['cassandra']['source_dir'] = '/usr/local/apache-cassandra-' + node['cassandra']['version']
+
+default['cassandra']['installation_dir'] = '/usr/local/cassandra'
+
+# node['cassandra']['installation_dir'] subdirs
+default['cassandra']['bin_dir']   = ::File.join(node['cassandra']['installation_dir'], 'bin')
+default['cassandra']['lib_dir']   = ::File.join(node['cassandra']['installation_dir'], 'lib')
+default['cassandra']['conf_dir']  = ::File.join(node['cassandra']['installation_dir'], 'conf')
+
+# commit log, data directory, saved caches and so on are all stored under the data root. MK.
+# node['cassandra']['root_dir'] sub dirs
+default['cassandra']['data_dir'] = [::File.join(node['cassandra']['root_dir'], 'data')]
+default['cassandra']['commitlog_dir'] = ::File.join(node['cassandra']['root_dir'], 'commitlog')
+default['cassandra']['saved_caches_dir'] = ::File.join(node['cassandra']['root_dir'], 'saved_caches')
+
+
 default['cassandra']['config']['cluster_name'] = nil
 default['cassandra']['config']['auto_bootstrap'] = true
 default['cassandra']['config']['hinted_handoff_enabled'] = true
