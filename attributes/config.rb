@@ -27,7 +27,7 @@ default['cassandra']['config']['trickle_fsync'] = false
 default['cassandra']['config']['trickle_fsync_interval_in_kb'] = 10_240
 nodeip = node['ipaddress']
 if !node['cassandra']['network_interface'].nil? && !node["network"]["interfaces"][node['cassandra']['network_interface']].nil?
-  nodeip = node["network"]["interfaces"]["eth1"]["addresses"].select {|address, data| data["family"] == "inet" }.keys[0]
+  nodeip = node["network"]["interfaces"][node['cassandra']['network_interface']]["addresses"].select {|address, data| data["family"] == "inet" }.keys[0]
 end
 
 default['cassandra']['config']['listen_address'] = nodeip
