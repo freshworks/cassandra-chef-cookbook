@@ -330,5 +330,5 @@
 
 ### Activate Jolokia agent
 <%if node['cassandra']['jvm']['jolokia']%>
--javaagent:/usr/share/cassandra/lib/jolokia-jvm-agent.jar=config=<%=::File.join(node['cassandra']['jolokia_conf_dir'], 'jolokia.properties'%>
+-javaagent:<%=::File.join(node['cassandra']['lib_dir'], 'jolokia-jvm-agent.jar')%>=config=<%=::File.join(node['cassandra']['jolokia_conf_dir'], 'jolokia.properties')%>
 <%end %>

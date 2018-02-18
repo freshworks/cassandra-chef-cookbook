@@ -3,7 +3,7 @@
 directory  node['cassandra']['jolokia_conf_dir'] do
   owner node['cassandra']['user']
   group node['cassandra']['group']
-  mode '0644'
+  mode '0755'
   action :create
   recursive true
 end

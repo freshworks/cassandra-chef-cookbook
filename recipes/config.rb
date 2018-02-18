@@ -184,6 +184,7 @@ bash 'download influxdb-reporter' do
   code <<-EOH
     aws s3 cp #{node['cassandra']['metrics_reporter']['s3_url']} #{node['cassandra']['lib_dir']}
   EOH
+  only_if { node['cassandra']['metrics_reporter']['enabled'] }
 end
 
 template ::File.join(node['cassandra']['conf_dir'], 'cassandra-metrics.yaml') do
