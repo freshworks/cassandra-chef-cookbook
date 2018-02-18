@@ -6,7 +6,7 @@ default['cassandra']['installation_dir'] = '/usr/local/cassandra'
 default['cassandra']['bin_dir']   = ::File.join(node['cassandra']['installation_dir'], 'bin')
 default['cassandra']['lib_dir']   = ::File.join(node['cassandra']['installation_dir'], 'lib')
 default['cassandra']['conf_dir']  = ::File.join(node['cassandra']['installation_dir'], 'conf')
-
+default['cassandra']['jolokia_conf_dir'] = ::File.join(node['cassandra']['installation_dir'], 'jolokia')
 # commit log, data directory, saved caches and so on are all stored under the data root. MK.
 # node['cassandra']['root_dir'] sub dirs
 default['cassandra']['data_dir'] = [::File.join(node['cassandra']['root_dir'], 'data')]

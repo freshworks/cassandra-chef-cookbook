@@ -278,7 +278,9 @@ template node['cassandra']['jmx_password_path'] do
   notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
   only_if { node['cassandra']['jmx_remote_authenticate'] }
 end
-
+if node['cassandra']['jvm']['jolokia']
+  include_recipe 'cassandra-dse::jolokia_config'
+end
 service 'cassandra' do
   supports restart: true, status: true
   service_name node['cassandra']['service_name']
