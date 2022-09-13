@@ -10,7 +10,7 @@ gem 'foodcritic'
 gem 'rake'
 gem 'rubocop', '= 0.49.0'
 
-gem 'nokogiri', '= 1.6.8.1'
+gem 'nokogiri', '>= 1.13.5'
 
 group :integration do
   gem 'guard', '~> 2.6'
