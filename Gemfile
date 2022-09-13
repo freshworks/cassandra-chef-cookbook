@@ -8,7 +8,7 @@ gem 'berkshelf'
 gem 'chefspec'
 gem 'foodcritic'
 gem 'rake'
-gem 'rubocop', '= 0.49.0'
+gem 'rubocop', '~> 0.52.1'
 
 gem 'nokogiri', '>= 1.13.5'
 
