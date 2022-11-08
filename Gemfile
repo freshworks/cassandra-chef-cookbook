@@ -9,6 +9,7 @@ gem 'chefspec'
 gem 'foodcritic'
 gem 'rake'
 gem 'rubocop', '= 0.49.0'
+gem 'ruby-dbus', '= 0.17.0'
 
 gem 'nokogiri', '= 1.6.8.1'
 
