@@ -1,3 +1,19 @@
+default['cassandra']['source_dir'] = '/usr/local/apache-cassandra-' + node['cassandra']['version']
+
+default['cassandra']['installation_dir'] = '/usr/local/cassandra'
+
+# node['cassandra']['installation_dir'] subdirs
+default['cassandra']['bin_dir']   = ::File.join(node['cassandra']['installation_dir'], 'bin')
+default['cassandra']['lib_dir']   = ::File.join(node['cassandra']['installation_dir'], 'lib')
+default['cassandra']['conf_dir']  = ::File.join(node['cassandra']['installation_dir'], 'conf')
+default['cassandra']['jolokia_conf_dir'] = ::File.join(node['cassandra']['installation_dir'], 'jolokia')
+# commit log, data directory, saved caches and so on are all stored under the data root. MK.
+# node['cassandra']['root_dir'] sub dirs
+default['cassandra']['data_dir'] = [::File.join(node['cassandra']['root_dir'], 'data')]
+default['cassandra']['commitlog_dir'] = ::File.join(node['cassandra']['root_dir'], 'commitlog')
+default['cassandra']['saved_caches_dir'] = ::File.join(node['cassandra']['root_dir'], 'saved_caches')
+
+
 default['cassandra']['config']['cluster_name'] = nil
 default['cassandra']['config']['auto_bootstrap'] = true
 default['cassandra']['config']['hinted_handoff_enabled'] = true
@@ -25,8 +41,13 @@ default['cassandra']['config']['concurrent_reads'] = 32 # suggested at 16 * numb
 default['cassandra']['config']['concurrent_writes'] = 32 # suggested at 8 * number of cpu cores
 default['cassandra']['config']['trickle_fsync'] = false
 default['cassandra']['config']['trickle_fsync_interval_in_kb'] = 10_240
-default['cassandra']['config']['listen_address'] = node['ipaddress']
-default['cassandra']['config']['broadcast_address'] = node['ipaddress']
+nodeip = node['ipaddress']
+if !node['cassandra']['network_interface'].nil? && !node["network"]["interfaces"][node['cassandra']['network_interface']].nil?
+  nodeip = node["network"]["interfaces"][node['cassandra']['network_interface']]["addresses"].select {|address, data| data["family"] == "inet" }.keys[0]
+end
+
+default['cassandra']['config']['listen_address'] = nodeip
+default['cassandra']['config']['broadcast_address'] = nodeip
 default['cassandra']['config']['rpc_address'] = '0.0.0.0'
 default['cassandra']['config']['rpc_port'] = '9160'
 default['cassandra']['config']['storage_port'] = 7000

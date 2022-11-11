@@ -167,17 +167,23 @@ end
 
 # setup metrics reporter
 
-remote_file "/usr/share/java/#{node['cassandra']['metrics_reporter']['jar_name']}" do
-  source node['cassandra']['metrics_reporter']['jar_url']
-  checksum node['cassandra']['metrics_reporter']['sha256sum']
-  only_if { node['cassandra']['metrics_reporter']['enabled'] }
-end
+# remote_file "/usr/share/java/#{node['cassandra']['metrics_reporter']['jar_name']}" do
+#   source node['cassandra']['metrics_reporter']['jar_url']
+#   checksum node['cassandra']['metrics_reporter']['sha256sum']
+#   only_if { node['cassandra']['metrics_reporter']['enabled'] }
+# end
 
-link "#{node['cassandra']['lib_dir']}/#{node['cassandra']['metrics_reporter']['name']}.jar" do
-  to "/usr/share/java/#{node['cassandra']['metrics_reporter']['jar_name']}"
-  owner node['cassandra']['user']
-  group node['cassandra']['group']
-  notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
+# link "#{node['cassandra']['lib_dir']}/#{node['cassandra']['metrics_reporter']['name']}.jar" do
+#   to "/usr/share/java/#{node['cassandra']['metrics_reporter']['jar_name']}"
+#   owner node['cassandra']['user']
+#   group node['cassandra']['group']
+#   notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
+#   only_if { node['cassandra']['metrics_reporter']['enabled'] }
+# end
+bash 'download influxdb-reporter' do
+  code <<-EOH
+    aws s3 cp #{node['cassandra']['metrics_reporter']['s3_url']} #{node['cassandra']['lib_dir']}
+  EOH
   only_if { node['cassandra']['metrics_reporter']['enabled'] }
 end
 
@@ -273,10 +279,12 @@ template node['cassandra']['jmx_password_path'] do
   notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
   only_if { node['cassandra']['jmx_remote_authenticate'] }
 end
-
+if node['cassandra']['jvm']['jolokia']
+  include_recipe 'cassandra-dse::jolokia_config'
+end
 service 'cassandra' do
   supports restart: true, status: true
   service_name node['cassandra']['service_name']
-  action node['cassandra']['service_action']
+  action :nothing
   only_if { node['cassandra']['use_initd'] || node['cassandra']['use_systemd'] }
 end

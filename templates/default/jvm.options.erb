@@ -325,3 +325,10 @@
 #-XX:NumberOfGCLogFiles=10
 #-XX:GCLogFileSize=10M
 <% end -%>
+
+
+
+### Activate Jolokia agent
+<%if node['cassandra']['jvm']['jolokia']%>
+-javaagent:<%=::File.join(node['cassandra']['lib_dir'], 'jolokia-jvm-agent.jar')%>=config=<%=::File.join(node['cassandra']['jolokia_conf_dir'], 'jolokia.properties')%>
+<%end %>
