@@ -9,17 +9,18 @@ gem 'berkshelf'
 gem 'chefspec'
 gem 'foodcritic'
 gem 'rake'
-gem 'rubocop'
+gem 'rubocop', '= 0.81.0'
 
-gem 'nokogiri', '>= 1.13.5'
+gem 'nokogiri', '~> 1.10.5'
+gem 'ruby-dbus', '= 0.17.0'
 
 group :integration do
   gem 'guard', '~> 2.6'
   gem 'guard-foodcritic', '~> 2.1.0'
   gem 'guard-rspec', '~> 4.2'
   gem 'kitchen-docker'
-  gem 'kitchen-vagrant'
-  gem 'test-kitchen'
+  gem 'kitchen-vagrant', '~> 1.7.0'
+  gem 'test-kitchen', '= 2.5.4'
 end
 
 group :test do
