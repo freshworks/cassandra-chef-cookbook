@@ -56,7 +56,7 @@ This cookbook currently provides
 
 ## Supported OS Distributions
 
- * Ubuntu 12.04 through 17.101 via DataStax apt repo.
+ * Ubuntu 14.04 through 18.04 via DataStax apt repo.
  * RHEL/CentOS via DataStax yum repo.
  * RHEL/CentOS/Amazon via tarball
 
@@ -160,6 +160,8 @@ some recently added attributes. Please refer to the [attributes files](https://g
  * `node[:cassandra][:heap_dump]` -XX:+HeapDumpOnOutOfMemoryError JVM parameter (default: true)
  * `node[:cassandra][:heap_dump_dir]` Directory where heap dumps will be placed (default: nil, which will use cwd)
  * `node[:cassandra][:vnodes]` enable vnodes. (default: true)
+ * `node[:cassandra][:enable_assertions]` Enable JVM assertions.  Disabling this in production will give a modest performance benefit (around 5%) (default: true).
+ * `node[:cassandra][:on_oom]` -XX:OnOutOfMemoryError JVM parameter (default: kill -9 %p)
 
  For the complete set of supported attributes, please consult [the source](https://github.com/michaelklishin/cassandra-chef-cookbook/tree/master/attributes).
 
@@ -186,6 +188,7 @@ Attributes for enabling G1 GC.
 Attributes for enabling GC detail/logging.
 
  * `node[:cassandra][:jvm][:gcdetail]` (default: false)
+ * `node[:cassandra][:log_gc]` -Xloggc JVM parameter (default: ${CASSANDRA_HOME}/logs/gc.log)
 
 Attributes for fine tuning the G1 GC algorithm:
 
@@ -274,7 +277,6 @@ Oracle JVM 8 tuning parameters: [here](https://docs.oracle.com/javase/8/docs/tec
  * `node[:cassandra][:config][:request_scheduler]` Class to schedule incoming client requests (default: org.apache.cassandra.scheduler.NoScheduler)
  * `node[:cassandra][:config][:index_interval]` index\_interval controls the sampling of entries from the primary row index in terms of space versus time (default: 128).
  * `node[:cassandra][:config][:auto_bootstrap]` Setting this parameter to false prevents the new nodes from attempting to get all the data from the other nodes in the data center. (default: true).
- * `node[:cassandra][:config][:enable_assertions]` Enable JVM assertions.  Disabling this in production will give a modest performance benefit (around 5%) (default: true).
  * `node[:cassandra][:config][:data_file_directories]` (default: node['cassandra']['data_dir']): C* data cirectories
  * `node[:cassandra][:config][:saved_caches_directory]` (default: saved_caches_directory): C* saved cache directory
  * `node[:cassandra][:config][:commitlog_directory]` (default: node['cassandra']['commitlog_dir']) *C commit log directory
@@ -430,6 +432,6 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) and [TESTING.md](./TESTING.md).
 ## Copyright & License
 
 Michael S. Klishin, Travis CI Development Team, and [contributors](https://github.com/michaelklishin/cassandra-chef-cookbook/graphs/contributors),
-2012-2017.
+2012-2018.
 
 Released under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
