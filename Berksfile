@@ -9,6 +9,6 @@ cookbook 'apt', '>= 0.0.0'
 cookbook 'yum', '>= 0.0.0'
 cookbook 'ark', '>= 0.0.0'
 cookbook 'systemd', '>= 0.0.0'
-cookbook 'chef_handler', '~> 3.0.2'
+cookbook 'chef_handler', '= 3.0.2'
 
 cookbook 'build-essential', '=8.0.4'
