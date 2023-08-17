@@ -3,7 +3,7 @@ source 'https://api.berkshelf.com'
 metadata
 
 # how come tests do not pick up these from metadata.rb? :/
-cookbook 'java', '>= 1.50'
+cookbook 'java', '~= 1.50'
 cookbook 'ulimit'
 cookbook 'apt'
 cookbook 'yum'
