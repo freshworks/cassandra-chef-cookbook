@@ -15,6 +15,7 @@ depends 'ark'
 depends 'systemd'
 depends 'chef_handler', '~> 3.0.2'
 gem 'ruby-dbus', '= 0.17.0'
+gem 'rexml', '~> 3.2', '>= 3.2.5'
 
 chef_version '>= 12.9.1'
 

@@ -10,6 +10,7 @@ gem 'chefspec'
 gem 'foodcritic'
 gem 'rake'
 gem 'rubocop'
+gem 'rexml', '~> 3.2', '>= 3.2.5'
 
 gem 'nokogiri', '>= 1.13.5'
 
