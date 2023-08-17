@@ -14,7 +14,7 @@ depends 'yum'
 depends 'ark'
 depends 'systemd'
 depends 'chef_handler', '~> 3.0.2'
-depends 'ruby-dbus', '= 0.17.0'
+gem 'ruby-dbus', '= 0.17.0'
 
 chef_version '>= 12.9.1'
 
