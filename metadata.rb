@@ -8,11 +8,11 @@ source_url 'https://github.com/michaelklishin/cassandra-chef-cookbook' if respon
 issues_url 'https://github.com/michaelklishin/cassandra-chef-cookbook/issues' if respond_to?(:issues_url)
 version '4.6.0'
 depends 'java' , '=1.50.0'
-depends 'ulimit'
-depends 'apt'
-depends 'yum'
-depends 'ark'
-depends 'systemd'
+depends 'ulimit', '=0.4.0'
+depends 'apt', '=6.1.4'
+depends 'yum', '=5.1.0'
+depends 'ark', '=3.1.0'
+depends 'systemd', '=3.2.0'
 depends 'chef_handler', '~> 3.0.2'
 gem 'ruby-dbus', '= 0.17.0'
 
