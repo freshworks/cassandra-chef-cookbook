@@ -18,6 +18,8 @@ depends 'windows', '3.4.4'
 depends 'homebrew', '3.0.0'
 depends 'chef_handler', '~> 3.0.2'
 depends 'build-essential', '=8.0.4'
+depends 'ohai', '5.2.2'
+depends 'mingw', '2.0.2'
 gem 'ruby-dbus', '= 0.17.0'
 gem 'rexml', '~> 3.2', '>= 3.2.5'
 
