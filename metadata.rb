@@ -20,7 +20,7 @@ depends 'chef_handler', '~> 3.0.2'
 depends 'build-essential', '=8.0.4'
 depends 'ohai', '5.2.2'
 depends 'mingw', '2.0.2'
-gem 'rexml', '3.2.5'
+
 gem 'ruby-dbus', '= 0.17.0'
 
 chef_version '>= 12.9.1'
