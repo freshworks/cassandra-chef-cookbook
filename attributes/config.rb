@@ -48,6 +48,11 @@ end
 
 default['cassandra']['config']['listen_address'] = nodeip
 default['cassandra']['config']['broadcast_address'] = nodeip
+
+if node['cassandra']['local_jmx'] == false
+  default['cassandra']['jmx_server_hostname'] = nodeip
+end
+
 default['cassandra']['config']['rpc_address'] = '0.0.0.0'
 default['cassandra']['config']['rpc_port'] = '9160'
 default['cassandra']['config']['storage_port'] = 7000
